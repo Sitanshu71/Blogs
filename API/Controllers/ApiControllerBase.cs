@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sitanshu.Blogs.API.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
@@ -16,6 +19,9 @@ namespace Sitanshu.Blogs.API.Controllers
     {
         private ISender _mediator = null!;
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
     }
 }

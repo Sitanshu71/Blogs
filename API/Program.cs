@@ -9,6 +9,8 @@ using Sitanshu.Blogs.Infrastructure;
 using Sitanshu.Blogs.Infrastructure.Persistence;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.RateLimiting;
+using Serilog;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddTransient<ICurrentUserService, CurrentUserService>();
+builder.Services.AddTransient<RedisCacheService>();
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddInfrastructureServices(builder.Configuration)
@@ -56,6 +60,9 @@ builder.Services.AddAuthorization(x =>
 
 builder.Services.AddSwaggerGen(action =>
 {
+    var xmlFileName = $"{Assembly.GetEntryAssembly()!.GetName().Name}.xml";
+    action.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFileName));
+
     action.AddSecurityDefinition("oauth2", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.OAuth2,
@@ -89,6 +96,17 @@ builder.Services.AddSwaggerGen(action =>
             new[] { builder.Configuration["AzureAd:Scope"] }
         }
     });
+});
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetSection("RedisConn").Value;
+    options.InstanceName = "BlogsCatalog";
+});
+
+builder.Host.UseSerilog((ctx, lc) =>
+{
+    lc.WriteTo.Console();
 });
 
 var app = builder.Build();
