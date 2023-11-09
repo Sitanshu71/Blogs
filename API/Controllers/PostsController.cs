@@ -12,6 +12,7 @@ namespace Sitanshu.Blogs.API.Controllers
     {
         [Authorize(Policy = "Reader")]
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(PaginatedList<PostBriefDto>), StatusCodes.Status200OK)]
         public async Task<PaginatedList<PostBriefDto>> Get(int id)
         {
             return await Mediator.Send(new GetPostsWithPaginationQuery { Id = id });
@@ -19,6 +20,7 @@ namespace Sitanshu.Blogs.API.Controllers
 
         [Authorize(Policy = "Contributor")]
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public async Task<ActionResult<int>> Create(CreatePostCommand command)
         {
             return await Mediator.Send(command);
