@@ -3,7 +3,7 @@ This is a Sample Blog API inspired from [Clean Architecture Template](https://gi
 <br>
 
 # Features
-* For Authentication and Authorization, we have used Microsoft Identity Platform(Azure AD).
-* We have used [Rate Limiting](https://learn.microsoft.com/en-us/aspnet/core/performance/rate-limit?view=aspnetcore-7.0) Mechanism provided by Microsoft.
+* For Authentication and Authorization, I have used Microsoft Identity Platform(Azure AD).
+* I have used [Rate Limiting](https://learn.microsoft.com/en-us/aspnet/core/performance/rate-limit?view=aspnetcore-7.0) Mechanism provided by Microsoft.
 * TODO: Caching Mechanism
 * TODO: Containerization
