@@ -8,6 +8,7 @@ This is a Sample Blog API inspired from [Clean Architecture Template](https://gi
 * docker-compose support has been added to run the API in Docker.
 * Caching(Redis) Mechanism has been added.
 * TODO: Unit/Integration Test
+* TODO: Dacpac Support for Database Deployment
 
 # How to run the API ?
 * Set the docker-compose as the start up project and run it. <br>It will create the necessary containers and run the API.
